@@ -2,15 +2,18 @@
    <h1 class="" id="">{{word.word}}</h1>
    <div class="row">
       <div class="col-md-2 col-md-offset-5">
-         <div class="btn btn-link define-button col-centered">Show definition <span class="glyphicon glyphicon-new-window definitionChevron"></span></div>
+         <div class="btn btn-link define-button col-centered" (click)="onDefine()">
+            Show definition 
+            <span class="glyphicon glyphicon-new-window definitionChevron"></span>
+         </div>
       </div>
    </div>
    <div class="row">
       <div class="col-md-2 col-md-offset-4">
-         <div class="btn btn-success gotIt-button">Got It</div>
+         <div class="btn btn-success gotIt-button" (click)="onGotIt(word)">Got It</div>
       </div>
       <div class="col-md-2">
-         <div class="btn btn-danger forget-button">I forget</div>
+         <div class="btn btn-danger forget-button" (click)="onForget(word)">I forget</div>
       </div>
    </div>
    <div class="btn btn-link delete-button" (click)="onDelete(word)"><small>Stop showing this word</small></div>
@@ -20,5 +23,6 @@
    <span class="close">×</span>
    <div id="modal-content">
       <div id="definitionsModal-word">{{word.word}}</div>
+      <div >{{word.definitions}}</div>
    </div>
 </div>

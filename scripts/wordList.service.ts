@@ -1,5 +1,6 @@
 import { WordComponent } from './word.component';
-import { WORDS } from './wordList.data.constant';
+import { Word } from './word.component';
+import { OnInit } from 'angular2/core';
 
 // Importing the "Injectable" function from the angular2/core module
 // and adding the "@Injectable" decorator lets us use dependency injection
@@ -17,30 +18,30 @@ import { Injectable } from 'angular2/core';
 //      interval: number  // which spaced repetition interval
 // }]
 
-export class WordListService {
+export class WordListService implements onInit {
 
   private LOCAL_STORAGE_KEY = "words";
 
-  // The "getBookmarks()" function checks if there is data in the local storage.
-  // If there is, we return this data,
-  // if there isn't we return the default data.
-  getWords() {
-    let words = JSON.parse( localStorage.getItem(this.LOCAL_STORAGE_KEY) );
-    if ( words !== null ) {
-      this.wordsToReturn = words;
-    }
-    return Promise.resolve( this.wordsToReturn );
+
+  ngOnInit() {
+    if (localStorage[this.LOCAL_STORAGE_KEY] == null) {
+      localStorage[this.LOCAL_STORAGE_KEY] = [];
+    }     
   }
 
-  // A "setBookmarks()" function saves new data in the local storage.
+  getWords() {
+    let words = JSON.parse( localStorage.getItem(this.LOCAL_STORAGE_KEY) );
+    let returnWords = [];
+    for (let word of words) {
+      returnWords.push(new Word(word["word"], word["whenAdded"], word["interval"]));
+    }
+    
+    return Promise.resolve( returnWords );
+  }
+
   addWord( word : Object ) {
     let words = JSON.parse( localStorage.getItem(this.LOCAL_STORAGE_KEY) );
     
-    // TODO: can we initialize this on init?
-    if ( words == null) {
-      this.saveToLocalStorage([]);
-    }
-
     // Look for word, quit if found, aka this word is a duplicate
     if (this.findWord(word["word"], words) != -1) {
       return;
@@ -62,6 +63,35 @@ export class WordListService {
     }
   }
   
+  // increment word interval
+  onGotIt( word : Word ) {
+    // are we at the terminal interval?
+    if (word.interval >= word.intervals.length) { return; }
+    
+    let words = JSON.parse( localStorage.getItem(this.LOCAL_STORAGE_KEY) );
+    let targetIdx = this.findWord(word.word, words);
+    if (targetIdx == -1 ) { return; }
+
+    let targetWord = words[targetIdx];
+    words[targetIdx] = new Word(targetWord.word, targetWord.whenAdded, targetWord.interval+1);
+    this.saveToLocalStorage(words);
+    return;
+  }
+
+  // forget case - set timestamp to now, but don't touch interval
+  // TODO: do we realy want that functionality?
+  onForget( word : Word ) {
+    let words = JSON.parse( localStorage.getItem(this.LOCAL_STORAGE_KEY) );
+    let targetIdx = this.findWord(word.word, words);
+    if (targetIdx == -1 ) { return; }
+
+    let targetWord = words[targetIdx];
+    let newInterval = targetWord.interval == 0 ? 1 : targetWord.interval
+    words[targetIdx] = new Word(targetWord.word, new Date(), newInterval);
+    this.saveToLocalStorage(words);
+    return;
+  }
+
   // returns index or -1 if not found
   private findWord (word : string, wordList : Object[]) {
     for (let i in wordList) {

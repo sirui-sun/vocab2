@@ -17,7 +17,7 @@ import { WordListService } from './wordList.service';
 export class WordListComponent implements OnInit {
 
 	newWord = {"word": ""};
-	public words : Array<Word>
+	public words : Array<Word>;		// full set of words
 
 	constructor ( private wordListService : WordListService ) { }
 
@@ -25,8 +25,20 @@ export class WordListComponent implements OnInit {
 	// the content to the left of the arrow is the function input
 	// the content to right fo the arrow is the function body
 	getWordsLists() {
-		this.wordListService.getWords().then( words => this.words = words)
+		this.wordListService.getWords().then(words => this.words = words);
 	}
+
+	// TODO: is there a way to do this without repeatedly calling getWordsLists
+	onGotIt( word : Word ) {
+		this.wordListService.onGotIt(word);
+		this.getWordsLists();
+	}
+
+	onForget( word : Word) {
+		this.wordListService.onForget(word);
+		this.getWordsLists();
+	}
+
 
 	ngOnInit() {
 		this.getWordsLists();
@@ -38,11 +50,8 @@ export class WordListComponent implements OnInit {
 	}
 
 	onSubmit ( word : Word ) {
-		// TODO: can we use a constructor for Word objects?
-		this.newWord["whenAdded"] = new Date();
-		this.newWord["interval"] = 0;
-		this.wordListService.addWord(this.newWord);
+		this.wordListService.addWord(new Word(this.newWord.word));
 		this.getWordsLists();
-		this.newWord = {"word": ""};
+		this.newWord = new Word("");
 	}
 }

@@ -6,7 +6,9 @@
     "(bookmarkChanged)" and "(bookmarkDeleted)". 
     Whenever one of these events were raised, 
     their respective functions will be executed. -->
-		<sp-word [word]="word" (wordDeleted)="deleteWord(word)"></sp-word>
+		<div *ngIf="word.shouldBeDisplayed()">
+            <sp-word [word]="word" (wordDeleted)="deleteWord(word)" (wordGotIt)="onGotIt(word)" (wordForgot)="onForget(word)"></sp-word>
+        </div>
 	</div>
 
 	<div class="word__form-wrapper">

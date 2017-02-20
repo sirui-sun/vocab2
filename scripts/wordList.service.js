@@ -1,4 +1,4 @@
-System.register(['angular2/core'], function(exports_1, context_1) {
+System.register(['./word.component', 'angular2/core'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,10 +10,13 @@ System.register(['angular2/core'], function(exports_1, context_1) {
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1;
+    var word_component_1, core_1;
     var WordListService;
     return {
         setters:[
+            function (word_component_1_1) {
+                word_component_1 = word_component_1_1;
+            },
             function (core_1_1) {
                 core_1 = core_1_1;
             }],
@@ -22,23 +25,22 @@ System.register(['angular2/core'], function(exports_1, context_1) {
                 function WordListService() {
                     this.LOCAL_STORAGE_KEY = "words";
                 }
-                // The "getBookmarks()" function checks if there is data in the local storage.
-                // If there is, we return this data,
-                // if there isn't we return the default data.
+                WordListService.prototype.ngOnInit = function () {
+                    if (localStorage[this.LOCAL_STORAGE_KEY] == null) {
+                        localStorage[this.LOCAL_STORAGE_KEY] = [];
+                    }
+                };
                 WordListService.prototype.getWords = function () {
                     var words = JSON.parse(localStorage.getItem(this.LOCAL_STORAGE_KEY));
-                    if (words !== null) {
-                        this.wordsToReturn = words;
+                    var returnWords = [];
+                    for (var _i = 0, words_1 = words; _i < words_1.length; _i++) {
+                        var word = words_1[_i];
+                        returnWords.push(new word_component_1.Word(word["word"], word["whenAdded"], word["interval"]));
                     }
-                    return Promise.resolve(this.wordsToReturn);
+                    return Promise.resolve(returnWords);
                 };
-                // A "setBookmarks()" function saves new data in the local storage.
                 WordListService.prototype.addWord = function (word) {
                     var words = JSON.parse(localStorage.getItem(this.LOCAL_STORAGE_KEY));
-                    // TODO: can we initialize this on init?
-                    if (words == null) {
-                        this.saveToLocalStorage([]);
-                    }
                     // Look for word, quit if found, aka this word is a duplicate
                     if (this.findWord(word["word"], words) != -1) {
                         return;
@@ -57,6 +59,36 @@ System.register(['angular2/core'], function(exports_1, context_1) {
                         words.splice(targetIdx, 1);
                         this.saveToLocalStorage(words);
                     }
+                };
+                // increment word interval
+                WordListService.prototype.onGotIt = function (word) {
+                    // are we at the terminal interval?
+                    if (word.interval >= word.intervals.length) {
+                        return;
+                    }
+                    var words = JSON.parse(localStorage.getItem(this.LOCAL_STORAGE_KEY));
+                    var targetIdx = this.findWord(word.word, words);
+                    if (targetIdx == -1) {
+                        return;
+                    }
+                    var targetWord = words[targetIdx];
+                    words[targetIdx] = new word_component_1.Word(targetWord.word, targetWord.whenAdded, targetWord.interval + 1);
+                    this.saveToLocalStorage(words);
+                    return;
+                };
+                // forget case - set timestamp to now, but don't touch interval
+                // TODO: do we realy want that functionality?
+                WordListService.prototype.onForget = function (word) {
+                    var words = JSON.parse(localStorage.getItem(this.LOCAL_STORAGE_KEY));
+                    var targetIdx = this.findWord(word.word, words);
+                    if (targetIdx == -1) {
+                        return;
+                    }
+                    var targetWord = words[targetIdx];
+                    var newInterval = targetWord.interval == 0 ? 1 : targetWord.interval;
+                    words[targetIdx] = new word_component_1.Word(targetWord.word, new Date(), newInterval);
+                    this.saveToLocalStorage(words);
+                    return;
                 };
                 // returns index or -1 if not found
                 WordListService.prototype.findWord = function (word, wordList) {

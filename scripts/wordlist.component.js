@@ -10,7 +10,7 @@ System.register(['angular2/core', './word.component', './wordList.service'], fun
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, word_component_1, wordList_service_1;
+    var core_1, word_component_1, word_component_2, wordList_service_1;
     var WordListComponent;
     return {
         setters:[
@@ -19,6 +19,7 @@ System.register(['angular2/core', './word.component', './wordList.service'], fun
             },
             function (word_component_1_1) {
                 word_component_1 = word_component_1_1;
+                word_component_2 = word_component_1_1;
             },
             function (wordList_service_1_1) {
                 wordList_service_1 = wordList_service_1_1;
@@ -38,6 +39,15 @@ System.register(['angular2/core', './word.component', './wordList.service'], fun
                     var _this = this;
                     this.wordListService.getWords().then(function (words) { return _this.words = words; });
                 };
+                // TODO: is there a way to do this without repeatedly calling getWordsLists
+                WordListComponent.prototype.onGotIt = function (word) {
+                    this.wordListService.onGotIt(word);
+                    this.getWordsLists();
+                };
+                WordListComponent.prototype.onForget = function (word) {
+                    this.wordListService.onForget(word);
+                    this.getWordsLists();
+                };
                 WordListComponent.prototype.ngOnInit = function () {
                     this.getWordsLists();
                 };
@@ -46,18 +56,15 @@ System.register(['angular2/core', './word.component', './wordList.service'], fun
                     this.getWordsLists();
                 };
                 WordListComponent.prototype.onSubmit = function (word) {
-                    // TODO: can we use a constructor for Word objects?
-                    this.newWord["whenAdded"] = new Date();
-                    this.newWord["interval"] = 0;
-                    this.wordListService.addWord(this.newWord);
+                    this.wordListService.addWord(new word_component_1.Word(this.newWord.word));
                     this.getWordsLists();
-                    this.newWord = { "word": "" };
+                    this.newWord = new word_component_1.Word("");
                 };
                 WordListComponent = __decorate([
                     core_1.Component({
                         selector: 'sp-wordlist',
                         templateUrl: './templates/wordList.html',
-                        directives: [word_component_1.WordComponent],
+                        directives: [word_component_2.WordComponent],
                         providers: [wordList_service_1.WordListService],
                         inputs: ["newWord"]
                     }), 

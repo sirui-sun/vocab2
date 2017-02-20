@@ -12,4 +12,4 @@ System.register([], function(exports_1, context_1) {
         }
     }
 });
-//# sourceMappingURL=wordList.data.constant.js.map
+//# sourceMappingURL=wordlist.data.constant.js.map

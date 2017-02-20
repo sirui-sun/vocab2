@@ -4,5 +4,10 @@
     "short_name": "Make the most of a new tab",
     "description": "This extension helps you save your favorite webpages.",
     "version": "1.0.0",
-    "author": "Michaela Lehr @fischaelameer"
+    "author": "Michaela Lehr @fischaelameer",
+    "chrome_url_overrides" : {
+    	"newtab": "index.html"
+    },
+    "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
+    "permissions": ["activeTab"]
 }
