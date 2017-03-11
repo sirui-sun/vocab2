@@ -68,6 +68,9 @@ System.register(['angular2/core', './wordDefinition.service'], function(exports_
                     this.defined = !(this.defined);
                     this.word.definitions = this.WordDefinitionService.define(this.word.word);
                 };
+                WordComponent.prototype.onDismissDefinition = function () {
+                    this.defined = false;
+                };
                 __decorate([
                     core_2.Output(), 
                     __metadata('design:type', core_3.EventEmitter)

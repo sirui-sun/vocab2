@@ -31,6 +31,7 @@ System.register(['angular2/core', './word.component', './wordList.service'], fun
                 function WordListComponent(wordListService) {
                     this.wordListService = wordListService;
                     this.newWord = { "word": "" };
+                    // listen to messages passed from content extension, and add them to local storage
                 }
                 // the arrow is equivalent to a function declaration
                 // the content to the left of the arrow is the function input
@@ -50,15 +51,27 @@ System.register(['angular2/core', './word.component', './wordList.service'], fun
                 };
                 WordListComponent.prototype.ngOnInit = function () {
                     this.getWordsLists();
+                    var t = this;
+                    // if (chrome) {
+                    // 	chrome.runtime.onMessage.addListener(
+                    // 		function(request, sender, sendResponse) {
+                    //  				console.log("background task received request: " + request);
+                    //  				t.onBgAddWord(request);
+                    // 	});
+                    // }
                 };
                 WordListComponent.prototype.deleteWord = function (word, i) {
                     this.wordListService.deleteWord(word.word);
                     this.getWordsLists();
                 };
                 WordListComponent.prototype.onSubmit = function (word) {
-                    this.wordListService.addWord(new word_component_1.Word(this.newWord.word));
+                    this.wordListService.addWord(new word_component_1.Word(this.newWord.word, null, null));
                     this.getWordsLists();
-                    this.newWord = new word_component_1.Word("");
+                    this.newWord = new word_component_1.Word("", null, null);
+                };
+                WordListComponent.prototype.onBgAddWord = function (word) {
+                    this.wordListService.addWord(new word_component_1.Word(word, null, null));
+                    this.getWordsLists();
                 };
                 WordListComponent = __decorate([
                     core_1.Component({

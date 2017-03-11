@@ -1,13 +1,29 @@
 {
     "manifest_version": 2,
-    "name": "SitePoint Bookmark Extension",
+    "name": "WordLearner2",
     "short_name": "Make the most of a new tab",
-    "description": "This extension helps you save your favorite webpages.",
-    "version": "1.0.0",
-    "author": "Michaela Lehr @fischaelameer",
+    "description": "Expand your vocabulary",
+    "version": "0.0.1",
+    "author": "Sirui Sun",
     "chrome_url_overrides" : {
     	"newtab": "index.html"
     },
     "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
-    "permissions": ["activeTab"]
+    "permissions": [
+        "activeTab",
+        "webNavigation",
+        "*://*/*",
+        "activeTab",
+        "tabs"
+    ],
+    "background": {
+        "page": "index.html",
+        "persistent": false
+    },
+    "content_scripts": [
+        {
+          "matches": ["https://www.google.com/*"],
+          "js": ["scripts/googleListener.js"]
+        }
+    ]
 }

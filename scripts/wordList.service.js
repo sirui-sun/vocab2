@@ -21,15 +21,16 @@ System.register(['./word.component', 'angular2/core'], function(exports_1, conte
                 core_1 = core_1_1;
             }],
         execute: function() {
+            // Importing the "Injectable" function from the angular2/core module
+            // and adding the "@Injectable" decorator lets us use dependency injection
+            // in this service.
             WordListService = (function () {
                 function WordListService() {
                     this.LOCAL_STORAGE_KEY = "words";
-                }
-                WordListService.prototype.ngOnInit = function () {
                     if (localStorage[this.LOCAL_STORAGE_KEY] == null) {
-                        localStorage[this.LOCAL_STORAGE_KEY] = [];
+                        localStorage[this.LOCAL_STORAGE_KEY] = "[]";
                     }
-                };
+                }
                 WordListService.prototype.getWords = function () {
                     var words = JSON.parse(localStorage.getItem(this.LOCAL_STORAGE_KEY));
                     var returnWords = [];

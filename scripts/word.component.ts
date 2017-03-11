@@ -9,10 +9,10 @@ import { WordDefinitionService } from './wordDefinition.service';
 // }
 
 export class Word {
-	word: string,		
-	definitions: Array,
-	whenAdded: Date,	// when the word was added
-	interval: number	// which spaced repetition interval
+	word: string;		
+	definitions: Array<Object>;
+	whenAdded: Date;	// when the word was added
+	interval: number;	// which spaced repetition interval
 	intervals = [0, 1/72, 1, 2, 4, 7, 11, 14, 21, 35, 70, 105];
 
 	constructor(word: string, whenAdded: Date, interval: number) {
@@ -66,5 +66,9 @@ export class WordComponent {
 	onDefine() {
 		this.defined = !(this.defined);
 		this.word.definitions = this.WordDefinitionService.define(this.word.word);
+	}
+
+	onDismissDefinition() {
+		this.defined = false;
 	}
 }

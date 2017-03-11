@@ -19,7 +19,9 @@ export class WordListComponent implements OnInit {
 	newWord = {"word": ""};
 	public words : Array<Word>;		// full set of words
 
-	constructor ( private wordListService : WordListService ) { }
+	constructor ( private wordListService : WordListService ) { 
+		// listen to messages passed from content extension, and add them to local storage
+	}
 
 	// the arrow is equivalent to a function declaration
 	// the content to the left of the arrow is the function input
@@ -42,6 +44,15 @@ export class WordListComponent implements OnInit {
 
 	ngOnInit() {
 		this.getWordsLists();
+		let t = this;
+
+		// if (chrome) {
+		// 	chrome.runtime.onMessage.addListener(
+		// 		function(request, sender, sendResponse) {
+	 //  				console.log("background task received request: " + request);
+	 //  				t.onBgAddWord(request);
+		// 	});
+		// }
 	}
 
 	deleteWord ( word : Word, i : number) {
@@ -50,8 +61,13 @@ export class WordListComponent implements OnInit {
 	}
 
 	onSubmit ( word : Word ) {
-		this.wordListService.addWord(new Word(this.newWord.word));
+		this.wordListService.addWord(new Word(this.newWord.word, null, null));
 		this.getWordsLists();
-		this.newWord = new Word("");
+		this.newWord = new Word("", null, null);
+	}
+
+	onBgAddWord ( word : string ) {
+		this.wordListService.addWord(new Word(word, null, null));
+		this.getWordsLists();
 	}
 }

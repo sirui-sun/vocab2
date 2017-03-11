@@ -1,11 +1,11 @@
 import { WordComponent } from './word.component';
 import { Word } from './word.component';
 import { OnInit } from 'angular2/core';
+import { Injectable } from 'angular2/core';
 
 // Importing the "Injectable" function from the angular2/core module
 // and adding the "@Injectable" decorator lets us use dependency injection
 // in this service.
-import { Injectable } from 'angular2/core';
 
 @Injectable()
 
@@ -18,15 +18,14 @@ import { Injectable } from 'angular2/core';
 //      interval: number  // which spaced repetition interval
 // }]
 
-export class WordListService implements onInit {
+export class WordListService {
 
   private LOCAL_STORAGE_KEY = "words";
 
-
-  ngOnInit() {
+  constructor () {
     if (localStorage[this.LOCAL_STORAGE_KEY] == null) {
-      localStorage[this.LOCAL_STORAGE_KEY] = [];
-    }     
+      localStorage[this.LOCAL_STORAGE_KEY] = "[]";
+    }
   }
 
   getWords() {

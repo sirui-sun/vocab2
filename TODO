@@ -1,4 +1,17 @@
 TODO
 ====
-- Add background task listener
-- Add all the CSS/UI
+- Enable modal dialogues
+	http://stackoverflow.com/questions/34513558/angular-2-0-and-modal-dialog
+
+- PROD readiness:
+	Switch to PROD Angular
+	Read tutorial on compressing
+
+- Empty state dialogue
+
+POST MVP
+========
+- Cloud sync support
+- use REGEXes in matching Google searches
+- dialogue asking what happens when a repeat word is added
+- custom definitions
