@@ -1,0 +1,27 @@
+<section class="wordList container" id="words">
+	<div *ngFor="let word of words; let i = index">
+    <!-- The template property binding "[bookmark]" 
+    sets the value to the component property "bookmark". 
+    In addition there are two custom component event bindings 
+    "(bookmarkChanged)" and "(bookmarkDeleted)". 
+    Whenever one of these events were raised, 
+    their respective functions will be executed. -->
+        <div *ngIf="word.shouldBeDisplayed()">
+            <sp-word [word]="word" (wordDeleted)="deleteWord(word)" (wordGotIt)="onGotIt(word)" (wordForgot)="onForget(word)"></sp-word>
+        </div>
+	</div>
+
+	<div class="jumbotron word" id="addWordDialogue">
+    <!-- The form has a submit button, 
+    which allows us to use the Angular directive "ngSubmit".
+    It calls another component function "onSubmit()". -->
+        <div id="addWordBoundingBox" class="row">
+        	<form (ngSubmit)="onSubmit()">
+    	    	<input class="col-md-1 form-control" id="newWordInput" [(ngModel)]="newWord['word']" name="newWord" placeholder="Add a new word"/>
+          		<button class="btn btn-primary add-button col-md-1" id="addWordButton" type="submit">
+                    <span class="glyphicon glyphicon-plus plus-icon"></span>
+                </button>
+       		</form>
+        </div>
+	</div>
+</section>
