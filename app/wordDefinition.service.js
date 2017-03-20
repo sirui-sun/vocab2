@@ -29,8 +29,6 @@ var WordDefinitionService = (function () {
         if (!this.dict) {
             return [];
         }
-        console.log("defining..");
-        console.log(word);
         return this.dict[word.toLowerCase()];
     };
     WordDefinitionService = __decorate([

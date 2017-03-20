@@ -24,8 +24,6 @@ export class WordDefinitionService {
   // TODO: do this with objects
   define( word : string ) {
     if(!this.dict) { return []; }
-    console.log("defining..");
-    console.log(word);
     return this.dict[word.toLowerCase()];
   }
 }

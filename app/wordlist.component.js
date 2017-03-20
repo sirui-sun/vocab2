@@ -40,8 +40,8 @@ var WordListComponent = (function () {
         var t = this;
         // if (chrome) {
         // 	chrome.runtime.onMessage.addListener(
-        // 		function(request, sender, sendResponse) {
-        //  				console.log("background task received request: " + request);
+        // 		function(request : any , sender : any, sendResponse : any) {
+        //  				// console.log("background task received request: " + rquest);
         //  				t.onBgAddWord(request);
         // 	});
         // }

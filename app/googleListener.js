@@ -62,6 +62,5 @@ function getWordFromURL(url) {
 
 // sends the new word to the extension for processing
 function sendMessage(word) {
-  console.log("sending message for word: " + word);
   chrome.runtime.sendMessage(word);
 }
