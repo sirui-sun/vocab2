@@ -1,11 +1,11 @@
 {
-  "name": "angular-examples-master",
-  "version": "1.0.0",
+  "name": "vocabular",
+  "version": "0.0.5",
   "private": true,
   "description": "Master package.json, the superset of all dependencies for all of the _example package.json files. See _boilerplate/package.json for example npm scripts.",
   "scripts": {
-    "build": "tsc -p src/",
-    "build:watch": "tsc -p src/ -w",
+    "build": "tsc -p ./",
+    "build:watch": "tsc -p ./ -w",
     "build:e2e": "tsc -p e2e/",
     "serve": "lite-server -c=bs-config.json",
     "prestart": "npm run build",
@@ -16,7 +16,7 @@
     "test": "concurrently \"npm run build:watch\" \"karma start karma.conf.js\"",
     "pretest:once": "npm run build",
     "test:once": "karma start karma.conf.js --single-run",
-    "lint": "tslint ./src/**/*.ts -t verbose",
+    "lint": "tslint ./**/*.ts -t verbose",
 
     "build:upgrade": "tsc",
     "serve:upgrade": "http-server",
@@ -27,7 +27,7 @@
     "start:webpack": "webpack-dev-server --inline --progress --port 8080",
     "test:webpack": "karma start karma.webpack.conf.js",
     "build:webpack": "rimraf dist && webpack --config config/webpack.prod.js --bail",
-    "build:babel": "babel src -d src --extensions \".es6\" --source-maps",
+    "build:babel": "babel ./ -d ./ --extensions \".es6\" --source-maps",
     "copy-dist-files": "node ./copy-dist-files.js",
     "i18n": "ng-xi18n"
   },

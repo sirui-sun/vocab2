@@ -57,7 +57,7 @@
 #words {
 	max-width: 700px;
 	position: relative;
-	top: 22px;
+	top: 75px;
 }
 
 /* The Modal (background) */
@@ -126,4 +126,12 @@
 
 .plus-icon {
 	top: 4px;
+}
+
+.navbarlink {
+	cursor: pointer;
+}
+
+.wordList {
+	top: 75px;
 }

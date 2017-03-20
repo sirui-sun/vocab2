@@ -11,8 +11,14 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 var AppComponent = (function () {
     function AppComponent() {
-        this.name = 'Angular';
+        this.name = 'Vocabular';
     }
+    AppComponent.prototype.onClickContact = function () {
+        alert("Have feedback or questions? We'd love to hear from you! Please contact vocabular.app@gmail.com");
+    };
+    AppComponent.prototype.onClickHelp = function () {
+        alert("help clicked");
+    };
     AppComponent = __decorate([
         core_1.Component({
             selector: 'my-app',
