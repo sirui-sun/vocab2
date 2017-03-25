@@ -7,7 +7,7 @@
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
             <li><a class="navbarlink" (click)="onClickContact()">Feedback</a></li>
-            <li><a class="navbarlink" href="http://imgur.com/a/3fpdO">How it works</a></li>
+            <li><a class="navbarlink" (click)="onClickHelp()">How it works</a></li>
           </ul>
         </div>
       </div>
@@ -15,4 +15,21 @@
 
 <div class="container">
   <sp-wordlist>Loading words...</sp-wordlist>
+</div>
+
+<!-- Learn more modal -->
+<div class="_modal" tabindex="-1" [ngStyle]="{'display': helpVisible ? 'block' : 'none'}">
+        <div class="modal-content help">
+            <span class="close" (click)="onDismissHelp()">×</span>
+            <img class="help-img" src="http://i.imgur.com/vF1q8Cb.png"/>
+            <img class="help-img" src="http://i.imgur.com/dxk911I.png"/>
+        </div>
+</div>
+
+<!-- Contact modal -->
+<div class="_modal" tabindex="-1" [ngStyle]="{'display': contactVisible ? 'block' : 'none'}">
+        <div class="modal-content">
+            <span class="close" (click)="onDismissContact()">×</span>
+            Have feedback or questions? We'd love to hear from you! Please contact <a href="mailto:vocabular.app@gmail.com">vocabular.app@gmail.com</a>.
+        </div>
 </div>

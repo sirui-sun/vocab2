@@ -41,7 +41,7 @@ var WordComponent = (function () {
         this.WordDefinitionService = WordDefinitionService;
         this.definitions = [1, 2, 3];
         this.defined = false;
-        this.visible = false;
+        this.definitionVisible = false;
         this.wordDeleted = new core_3.EventEmitter();
         this.wordGotIt = new core_3.EventEmitter();
         this.wordForgot = new core_3.EventEmitter();
@@ -60,10 +60,10 @@ var WordComponent = (function () {
             this.definitions = this.WordDefinitionService.define(this.word.word);
             this.defined = true;
         }
-        this.visible = true;
+        this.definitionVisible = true;
     };
     WordComponent.prototype.onDismissDefinition = function () {
-        this.visible = false;
+        this.definitionVisible = false;
     };
     __decorate([
         core_2.Output(), 
@@ -82,7 +82,7 @@ var WordComponent = (function () {
             selector: 'sp-word',
             templateUrl: './templates/word.html',
             providers: [wordDefinition_service_1.WordDefinitionService],
-            inputs: ['word'],
+            inputs: ['word']
         }), 
         __metadata('design:paramtypes', [wordDefinition_service_1.WordDefinitionService])
     ], WordComponent);

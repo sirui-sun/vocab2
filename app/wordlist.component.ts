@@ -9,7 +9,6 @@ import { WordListService } from './wordList.service';
 @Component({
     selector: 'sp-wordlist',
     templateUrl: './templates/wordList.html',
-    //directives: [ WordComponent ],
     providers: [ WordListService ],
     inputs: ["newWord"]
 })

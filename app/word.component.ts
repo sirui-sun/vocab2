@@ -35,8 +35,7 @@ export class Word {
     selector: 'sp-word',
     templateUrl: './templates/word.html',
     providers: [ WordDefinitionService ],
-    inputs: ['word'],
-    // /directives: [ DefinitionModal ]
+    inputs: ['word']
 })
 
 export class WordComponent { 
@@ -47,7 +46,7 @@ export class WordComponent {
 	word : Word;
 	definitions : Array<any> = [1,2,3];
 	defined = false;
-	visible = false;
+	definitionVisible = false;
 
 	// hmm, does each word have to declare its own private instance of word definition service?
 	constructor ( private WordDefinitionService : WordDefinitionService) { }
@@ -73,10 +72,10 @@ export class WordComponent {
 			this.definitions = this.WordDefinitionService.define(this.word.word);
 			this.defined = true;
 		}
-		this.visible = true;
+		this.definitionVisible = true;
 	}
 
 	onDismissDefinition() {
-		this.visible = false;
+		this.definitionVisible = false;
 	}
 }

@@ -12,12 +12,20 @@ var core_1 = require('@angular/core');
 var AppComponent = (function () {
     function AppComponent() {
         this.name = 'Vocabular';
+        this.helpVisible = false;
+        this.contactVisible = false;
     }
     AppComponent.prototype.onClickContact = function () {
-        alert("Have feedback or questions? We'd love to hear from you! Please contact vocabular.app@gmail.com");
+        this.contactVisible = true;
     };
     AppComponent.prototype.onClickHelp = function () {
-        alert("help clicked");
+        this.helpVisible = true;
+    };
+    AppComponent.prototype.onDismissHelp = function () {
+        this.helpVisible = false;
+    };
+    AppComponent.prototype.onDismissContact = function () {
+        this.contactVisible = false;
     };
     AppComponent = __decorate([
         core_1.Component({

@@ -7,12 +7,22 @@ import { Component } from '@angular/core';
 
 export class AppComponent { 
 	name = 'Vocabular';
+	private helpVisible : boolean = false;
+	private contactVisible : boolean = false;
 
 	onClickContact() : void {
-		alert("Have feedback or questions? We'd love to hear from you! Please contact vocabular.app@gmail.com");
+		this.contactVisible = true;
 	}
 
 	onClickHelp() : void {
-		alert("help clicked");
+		this.helpVisible = true;
 	}
+
+	onDismissHelp() {
+		this.helpVisible = false;
+	}	
+	
+	onDismissContact() {
+		this.contactVisible = false;
+	}	
 }

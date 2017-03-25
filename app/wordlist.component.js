@@ -63,7 +63,6 @@ var WordListComponent = (function () {
         core_1.Component({
             selector: 'sp-wordlist',
             templateUrl: './templates/wordList.html',
-            //directives: [ WordComponent ],
             providers: [wordList_service_1.WordListService],
             inputs: ["newWord"]
         }), 

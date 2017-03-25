@@ -1,13 +1,11 @@
 TODO
 ====
-- Read tutorial on compressing
-- Empty state dialogue
+- generic modal dialogue, post in imgur
+- dialogue asking what happens when a repeat word is added
+- Custom definitions
+- BUG: clicking resolve much later should skip to the latest interval
 
-POST MVP
 ========
 - Cloud sync support
 - Different language support
-- Custom definitions
-- Empty state for normal words
 - use REGEXes in matching Google searches
-- dialogue asking what happens when a repeat word is added
