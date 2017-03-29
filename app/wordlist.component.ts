@@ -3,6 +3,7 @@ import { OnInit } from '@angular/core';
 import { Word } from './word.component';
 import { WordComponent } from './word.component';
 import { WordListService } from './wordList.service';
+import { FormControl, FormArray, Validators } from '@angular/forms'
 
 // The ListComponent metadata defines the component's selector,
 // the url of the template and the directives used in this template.
@@ -14,9 +15,17 @@ import { WordListService } from './wordList.service';
 })
 
 export class WordListComponent implements OnInit {
-
-	newWord = {"word": ""};
+	
 	public words : Array<Word>;		// full set of words
+
+	// fields
+	newWord:string = "";
+	newCustomDefinitions:Array<Object> = [];
+	
+	// form controls
+	wordControl:FormControl = new FormControl(null , Validators.required);
+	customDefControls:Array<FormControl> = [];
+	customDefArray:FormArray = new FormArray(this.customDefControls);
 
 	constructor ( private wordListService : WordListService ) { 
 		// listen to messages passed from content extension, and add them to local storage
@@ -40,6 +49,9 @@ export class WordListComponent implements OnInit {
 		this.getWordsLists();
 	}
 
+	onUpdateCustomDefinitions(word:Word, event:any) {
+		this.wordListService.updateWordWithCustomDefinitions(word.word, event)
+	}
 
 	ngOnInit() {
 		this.getWordsLists();
@@ -59,14 +71,43 @@ export class WordListComponent implements OnInit {
 		this.getWordsLists();
 	}
 
-	onSubmit ( word : Word ) {
-		this.wordListService.addWord(new Word(this.newWord.word, null, null));
-		this.getWordsLists();
-		this.newWord = new Word("", null, null);
+	addCustomDefinition():void{
+		this.customDefArray.push(new FormControl(null, Validators.required));
 	}
 
+	removeCustomDefinition(idx:number):void{
+		this.customDefArray.removeAt(idx);
+	}
+
+	onSubmit ( word : Word ) {
+		// customDef: update the Word
+		// customDef: get the definition
+		// customDef: if empty, engage the modal dialogue to ask for definition 
+		// customDef: if not, then just add the word
+		if(!this.wordControl.valid) {
+			alert("please enter a word...");
+			return;
+		}
+
+		if(!this.customDefArray.valid){
+			alert("please enter all definitions...");
+			return;
+		}
+
+		let result = this.wordListService.addWord(new Word(this.wordControl.value, null, null, this.customDefArray.value));
+		if (result == -1 ) {
+			alert("You've already added this word...");
+		}
+
+		this.getWordsLists();
+		this.wordControl.reset();
+		this.customDefControls = [];
+		this.customDefArray = new FormArray(this.customDefControls);
+	}
+
+	// background word adds assume no custom definitions (for now)
 	onBgAddWord ( word : string ) {
-		this.wordListService.addWord(new Word(word, null, null));
+		this.wordListService.addWord(new Word(word, null, null, null));
 		this.getWordsLists();
 	}
 }

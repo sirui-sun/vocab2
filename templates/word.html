@@ -20,7 +20,7 @@
 </div>
 
 <!-- definitions modal -->
-<div class="_modal" tabindex="-1" (click)="onDismissDefinition()" [ngStyle]="{'display': definitionVisible ? 'block' : 'none'}">
+<div class="_modal" tabindex="-1" [ngStyle]="{'display': definitionVisible ? 'block' : 'none'}">
    <div class="modal-content definition">
          <span class="close" (click)="onDismissDefinition()">×</span>
          <div id="modal-content">
@@ -30,5 +30,17 @@
                   {{definition[1]}}
             </div>
          </div>
+
+         <ul>
+           <li *ngFor="let t of newCustomDefControls; let i = index">
+               <input [formControl]="t">
+               <button (click)="removeCustomDefinition(i)">X</button>
+           </li>
+         </ul>
+         <button (click)="addCustomDefinition()">Add custom definition</button>
+         <button (click)="submitCustomDefinitions()">Update</button>
+            <!-- CustomDef: Add a hidden part of the form which populates the different definitions -->
+
+         <!-- TODO: refactor this to avoid duplicate code -->
    </div>
 </div>

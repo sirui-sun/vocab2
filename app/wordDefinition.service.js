@@ -18,7 +18,8 @@ var WordDefinitionService = (function () {
     function WordDefinitionService(http) {
         var _this = this;
         this.dict = {};
-        http.get('./resources/dictionary/dict.json').map(function (res) { return res.json(); }).subscribe(function (res) { return _this.dict = res; });
+        http.get('./resources/dictionary/dict.json')
+            .map(function (res) { return res.json(); }).subscribe(function (res) { return _this.dict = res; });
     }
     // definitions have the following schema:
     // list of definitions, for each definition:

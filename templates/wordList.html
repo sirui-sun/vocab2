@@ -7,22 +7,26 @@
     Whenever one of these events were raised, 
     their respective functions will be executed. -->
         <div *ngIf="word.shouldBeDisplayed()">
-            <sp-word [word]="word" (wordDeleted)="deleteWord(word)" (wordGotIt)="onGotIt(word)" (wordForgot)="onForget(word)"></sp-word>
+            <sp-word [word]="word" (wordDeleted)="deleteWord(word)" (wordGotIt)="onGotIt(word)" (wordForgot)="onForget(word)" (updateCustomDefinitions)="onUpdateCustomDefinitions(word, $event)"></sp-word>
         </div>
 	</div>
 
     <!-- Add word -->
 	<div class="jumbotron word" id="addWordDialogue">
-    <!-- The form has a submit button, 
-    which allows us to use the Angular directive "ngSubmit".
-    It calls another component function "onSubmit()". -->
         <div id="addWordBoundingBox" class="row">
-        	<form (ngSubmit)="onSubmit()">
-    	    	<input class="col-md-1 form-control" id="newWordInput" [(ngModel)]="newWord['word']" name="newWord" placeholder="Add a new word"/>
-          		<button class="btn btn-primary add-button col-md-1" id="addWordButton" type="submit">
-                    <span class="glyphicon glyphicon-plus plus-icon"></span>
-                </button>
-       		</form>
+	    	<input class="col-md-1 form-control" id="newWordInput" [formControl] = "wordControl" name="newWord" placeholder="Add a new word"/>
+      		<button class="btn btn-primary add-button col-md-1" id="addWordButton" type="submit" (click)=onSubmit() >
+                <span class="glyphicon glyphicon-plus plus-icon"></span>
+            </button>
+            
+            <ul>
+              <li *ngFor="let t of customDefControls; let i = index">
+                <input [formControl]="t">
+                <button (click)="removeCustomDefinition(i)">X</button>
+              </li>
+            </ul>
+            <button (click)="addCustomDefinition()">Add custom definition</button>
+            <!-- CustomDef: Add a hidden part of the form which populates the different definitions -->
         </div>
 	</div>
 </section>

@@ -17,6 +17,7 @@ import { Injectable } from '@angular/core';
 //      definitions: Array<{partOfSpeech:string; definition:string}>,
 //      whenAdded: number,  // when the word was added
 //      interval: number  // which spaced repetition interval
+//      customDefinitions: Array<{partOfSpeech:string; definition:string}>
 // }]
 
 export class WordListService {
@@ -33,21 +34,29 @@ export class WordListService {
     let words = JSON.parse( localStorage.getItem(this.LOCAL_STORAGE_KEY) );
     let returnWords : Array<any> = [];
     for (let word of words) {
-      returnWords.push(new Word(word["word"], word["whenAdded"], word["interval"]));
+      returnWords.push(new Word(word["word"], word["whenAdded"], word["interval"], word["customDefinitions"]));
     }
-    
     return Promise.resolve( returnWords );
   }
 
-  addWord( word : Object ) {
+  // RepeatDef
+  addWord( word : Object ):number {
     let words = JSON.parse( localStorage.getItem(this.LOCAL_STORAGE_KEY) );
     
     // Look for word, quit if found, aka this word is a duplicate
-    if (this.findWord(word["word"], words) != -1) {
-      return;
-    }
+    if (this.findWord(word["word"], words) != -1) { return -1; }
 
     words.push(word);
+    this.saveToLocalStorage(words);
+    return 1;
+  }
+
+  updateWordWithCustomDefinitions(word:string, customDefinitions:Array<string>) {
+    let words = JSON.parse( localStorage.getItem(this.LOCAL_STORAGE_KEY) );
+    let targetIdx = this.findWord(word, words);
+    if (targetIdx == -1 ) { return; }
+    let targetWord = words[targetIdx];
+    words[targetIdx] = new Word(targetWord.word, targetWord.whenAdded, targetWord.interval, targetWord.customDefinitions.concat(customDefinitions));
     this.saveToLocalStorage(words);
   }
 
@@ -55,12 +64,9 @@ export class WordListService {
   deleteWord( word : string ) {
     let words = JSON.parse( localStorage.getItem(this.LOCAL_STORAGE_KEY) );
     let targetIdx = this.findWord(word, words);
-    if (targetIdx == -1) {
-      return; 
-    } else {
-      words.splice(targetIdx, 1);
-      this.saveToLocalStorage(words);
-    }
+    if (targetIdx == -1) { return; } 
+    words.splice(targetIdx, 1);
+    this.saveToLocalStorage(words);
   }
   
   // increment word interval
@@ -73,7 +79,7 @@ export class WordListService {
     if (targetIdx == -1 ) { return; }
 
     let targetWord = words[targetIdx];
-    words[targetIdx] = new Word(targetWord.word, targetWord.whenAdded, targetWord.interval+1);
+    words[targetIdx] = new Word(targetWord.word, new Date(), targetWord.interval+1, targetWord.customDefinitions);
     this.saveToLocalStorage(words);
     return;
   }
@@ -87,7 +93,7 @@ export class WordListService {
 
     let targetWord = words[targetIdx];
     let newInterval = targetWord.interval == 0 ? 1 : targetWord.interval
-    words[targetIdx] = new Word(targetWord.word, new Date(), newInterval);
+    words[targetIdx] = new Word(targetWord.word, new Date(), newInterval, targetWord.customDefinitions);
     this.saveToLocalStorage(words);
     return;
   }

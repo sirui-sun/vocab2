@@ -26,17 +26,29 @@ var WordListService = (function () {
         var returnWords = [];
         for (var _i = 0, words_1 = words; _i < words_1.length; _i++) {
             var word = words_1[_i];
-            returnWords.push(new word_component_1.Word(word["word"], word["whenAdded"], word["interval"]));
+            returnWords.push(new word_component_1.Word(word["word"], word["whenAdded"], word["interval"], word["customDefinitions"]));
         }
         return Promise.resolve(returnWords);
     };
+    // RepeatDef
     WordListService.prototype.addWord = function (word) {
         var words = JSON.parse(localStorage.getItem(this.LOCAL_STORAGE_KEY));
         // Look for word, quit if found, aka this word is a duplicate
         if (this.findWord(word["word"], words) != -1) {
-            return;
+            return -1;
         }
         words.push(word);
+        this.saveToLocalStorage(words);
+        return 1;
+    };
+    WordListService.prototype.updateWordWithCustomDefinitions = function (word, customDefinitions) {
+        var words = JSON.parse(localStorage.getItem(this.LOCAL_STORAGE_KEY));
+        var targetIdx = this.findWord(word, words);
+        if (targetIdx == -1) {
+            return;
+        }
+        var targetWord = words[targetIdx];
+        words[targetIdx] = new word_component_1.Word(targetWord.word, targetWord.whenAdded, targetWord.interval, targetWord.customDefinitions.concat(customDefinitions));
         this.saveToLocalStorage(words);
     };
     // remove from localStorage
@@ -46,10 +58,8 @@ var WordListService = (function () {
         if (targetIdx == -1) {
             return;
         }
-        else {
-            words.splice(targetIdx, 1);
-            this.saveToLocalStorage(words);
-        }
+        words.splice(targetIdx, 1);
+        this.saveToLocalStorage(words);
     };
     // increment word interval
     WordListService.prototype.onGotIt = function (word) {
@@ -63,7 +73,7 @@ var WordListService = (function () {
             return;
         }
         var targetWord = words[targetIdx];
-        words[targetIdx] = new word_component_1.Word(targetWord.word, targetWord.whenAdded, targetWord.interval + 1);
+        words[targetIdx] = new word_component_1.Word(targetWord.word, new Date(), targetWord.interval + 1, targetWord.customDefinitions);
         this.saveToLocalStorage(words);
         return;
     };
@@ -77,7 +87,7 @@ var WordListService = (function () {
         }
         var targetWord = words[targetIdx];
         var newInterval = targetWord.interval == 0 ? 1 : targetWord.interval;
-        words[targetIdx] = new word_component_1.Word(targetWord.word, new Date(), newInterval);
+        words[targetIdx] = new word_component_1.Word(targetWord.word, new Date(), newInterval, targetWord.customDefinitions);
         this.saveToLocalStorage(words);
         return;
     };

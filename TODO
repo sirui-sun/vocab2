@@ -1,11 +1,5 @@
-TODO
-====
-- generic modal dialogue, post in imgur
-- dialogue asking what happens when a repeat word is added
-- Custom definitions
-- BUG: clicking resolve much later should skip to the latest interval
-
-========
-- Cloud sync support
-- Different language support
-- use REGEXes in matching Google searches
+- New theme
+- Custom definitions (CSS)
+- Call an online dictionary
+- View for reviewing all words that were learned
+- Come up with new name

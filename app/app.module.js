@@ -14,7 +14,6 @@ var forms_1 = require('@angular/forms');
 var app_component_1 = require('./app.component');
 var wordlist_component_1 = require('./wordlist.component');
 var word_component_1 = require('./word.component');
-// import { DefinitionModal } from './word.component';
 var http_1 = require('@angular/http');
 var AppModule = (function () {
     function AppModule() {
@@ -24,12 +23,13 @@ var AppModule = (function () {
             imports: [
                 platform_browser_1.BrowserModule,
                 forms_1.FormsModule,
-                http_1.HttpModule
+                http_1.HttpModule,
+                forms_1.ReactiveFormsModule
             ],
             declarations: [
                 app_component_1.AppComponent,
                 wordlist_component_1.WordListComponent,
-                word_component_1.WordComponent,
+                word_component_1.WordComponent
             ],
             bootstrap: [app_component_1.AppComponent]
         }), 

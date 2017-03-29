@@ -11,12 +11,19 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 var word_component_1 = require('./word.component');
 var wordList_service_1 = require('./wordList.service');
+var forms_1 = require('@angular/forms');
 // The ListComponent metadata defines the component's selector,
 // the url of the template and the directives used in this template.
 var WordListComponent = (function () {
     function WordListComponent(wordListService) {
         this.wordListService = wordListService;
-        this.newWord = { "word": "" };
+        // fields
+        this.newWord = "";
+        this.newCustomDefinitions = [];
+        // form controls
+        this.wordControl = new forms_1.FormControl(null, forms_1.Validators.required);
+        this.customDefControls = [];
+        this.customDefArray = new forms_1.FormArray(this.customDefControls);
         // listen to messages passed from content extension, and add them to local storage
     }
     // the arrow is equivalent to a function declaration
@@ -35,6 +42,9 @@ var WordListComponent = (function () {
         this.wordListService.onForget(word);
         this.getWordsLists();
     };
+    WordListComponent.prototype.onUpdateCustomDefinitions = function (word, event) {
+        this.wordListService.updateWordWithCustomDefinitions(word.word, event);
+    };
     WordListComponent.prototype.ngOnInit = function () {
         this.getWordsLists();
         var t = this;
@@ -50,13 +60,37 @@ var WordListComponent = (function () {
         this.wordListService.deleteWord(word.word);
         this.getWordsLists();
     };
-    WordListComponent.prototype.onSubmit = function (word) {
-        this.wordListService.addWord(new word_component_1.Word(this.newWord.word, null, null));
-        this.getWordsLists();
-        this.newWord = new word_component_1.Word("", null, null);
+    WordListComponent.prototype.addCustomDefinition = function () {
+        this.customDefArray.push(new forms_1.FormControl(null, forms_1.Validators.required));
     };
+    WordListComponent.prototype.removeCustomDefinition = function (idx) {
+        this.customDefArray.removeAt(idx);
+    };
+    WordListComponent.prototype.onSubmit = function (word) {
+        // customDef: update the Word
+        // customDef: get the definition
+        // customDef: if empty, engage the modal dialogue to ask for definition 
+        // customDef: if not, then just add the word
+        if (!this.wordControl.valid) {
+            alert("please enter a word...");
+            return;
+        }
+        if (!this.customDefArray.valid) {
+            alert("please enter all definitions...");
+            return;
+        }
+        var result = this.wordListService.addWord(new word_component_1.Word(this.wordControl.value, null, null, this.customDefArray.value));
+        if (result == -1) {
+            alert("You've already added this word...");
+        }
+        this.getWordsLists();
+        this.wordControl.reset();
+        this.customDefControls = [];
+        this.customDefArray = new forms_1.FormArray(this.customDefControls);
+    };
+    // background word adds assume no custom definitions (for now)
     WordListComponent.prototype.onBgAddWord = function (word) {
-        this.wordListService.addWord(new word_component_1.Word(word, null, null));
+        this.wordListService.addWord(new word_component_1.Word(word, null, null, null));
         this.getWordsLists();
     };
     WordListComponent = __decorate([

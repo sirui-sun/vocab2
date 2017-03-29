@@ -85,12 +85,12 @@
 
 .help {
 	width: 60%;
-	margin: 5% auto; /* 15% from the top and centered */
+	margin: 5% auto;
 }
 
 .definition {
 	width: 40%;
-	margin: 15% auto; /* 15% from the top and centered */
+	margin: 15% auto;
 }
 
 .help-img {

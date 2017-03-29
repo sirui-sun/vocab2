@@ -14,7 +14,8 @@ export class WordDefinitionService {
 
 	constructor(http: Http) {
 		this.dict = {};
-		http.get('./resources/dictionary/dict.json').map((res: Response) => res.json()).subscribe((res : Response) => this.dict = res);
+		http.get('./resources/dictionary/dict.json')
+      .map((res: Response) => res.json()).subscribe((res : Response) => this.dict = res);
 	}
 
   // definitions have the following schema:
