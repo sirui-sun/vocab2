@@ -119,7 +119,10 @@
 
 #addWordBoundingBox {
 	width: 400px;
-	margin: 0 auto;
+	margin-top: 0px;
+	margin-left: auto;
+	margin-right: auto;
+	margin-bottom: 10px;
 }
 
 #newWordInput {
@@ -133,9 +136,8 @@
 	height: 34px;
 	width: 49px;
 }
-
+`
 #addWordDialogue {
-	height: 72px;
 }
 
 .plus-icon {
@@ -148,4 +150,79 @@
 
 .wordList {
 	top: 75px;
+}
+
+.addCustomDefButton {
+	position: relative;
+	top:5px;
+	cursor: pointer;
+	padding-top: 5px;
+	padding-bottom: 5px;
+}
+
+.customDefFormInWord {
+	top: 20px;
+}
+
+.customDefWordlist {
+
+	top: 2px;
+	bottom: 5px;
+    font-size: 14px;
+    right: 24px;
+    padding-bottom: 5px;
+    margin-top: 7px;
+}
+
+.customDefWord {
+	margin-top: 5px;
+	width: 400px;
+}
+
+.definitionForm {
+	width: 342px;
+	position: relative;
+	padding-top: 5px;
+	padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #555;
+    background-color: #fff;
+    background-image: none;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.removeCustomDefWordlist {
+	top: 19px;
+	right: 41px;
+}
+
+.removeCustomDefWord {
+	top: 14px;
+	right: 79px;
+}
+
+.removeCustomDef {
+	float: right;
+	position: relative;
+	cursor: pointer;
+	font-weight: 700;
+	line-height: 1;
+    color: #aaa;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+
+.removeCustomDef:hover,
+.removeCustomDef:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.updateButton {
+	position: relative;
+	float: right;
+	bottom:27px;
+	left: 7px;
 }

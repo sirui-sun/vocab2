@@ -19,14 +19,15 @@
                 <span class="glyphicon glyphicon-plus plus-icon"></span>
             </button>
             
-            <ul>
-              <li *ngFor="let t of customDefControls; let i = index">
-                <input [formControl]="t">
-                <button (click)="removeCustomDefinition(i)">X</button>
-              </li>
-            </ul>
-            <button (click)="addCustomDefinition()">Add custom definition</button>
-            <!-- CustomDef: Add a hidden part of the form which populates the different definitions -->
+            <div *ngIf="!this.wordControl.pristine">
+                <div>
+                  <div *ngFor="let t of customDefControls; let i = index">
+                    <input [formControl]="t" placeholder="Enter a custom definition" class="definitionForm customDefWordlist" >
+                    <div class="removeCustomDef removeCustomDefWordlist" (click)="removeCustomDefinition(i)">X</div>
+                  </div>
+                </div>
+                <div class="btn-link addCustomDefButton" (click)="addCustomDefinition()">Add custom definition</div>
+            </div>
         </div>
 	</div>
 </section>

@@ -31,14 +31,16 @@
             </div>
          </div>
 
-         <ul>
-           <li *ngFor="let t of newCustomDefControls; let i = index">
-               <input [formControl]="t">
-               <button (click)="removeCustomDefinition(i)">X</button>
-           </li>
-         </ul>
-         <button (click)="addCustomDefinition()">Add custom definition</button>
-         <button (click)="submitCustomDefinitions()">Update</button>
+         <div>
+           <div *ngFor="let t of newCustomDefControls; let i = index">
+               <input [formControl]="t" placeholder="Enter a custom definition" class="definitionForm customDefWord">
+               <span class="removeCustomDef removeCustomDefWord" (click)="removeCustomDefinition(i)">X</span>
+           </div>
+         </div>
+         <div class="btn-link addCustomDefButton" (click)="addCustomDefinition()">Add custom definition</div>
+         <div *ngIf="this.newCustomDefControls.length > 0" class="btn btn-primary updateButton" (click)="submitCustomDefinitions()">
+            Update
+         </div>
             <!-- CustomDef: Add a hidden part of the form which populates the different definitions -->
 
          <!-- TODO: refactor this to avoid duplicate code -->
