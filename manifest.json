@@ -1,10 +1,10 @@
 {
     "manifest_version": 2,
-    "name": "Vocabular",
+    "name": "Flashback",
     "short_name": "The hassle-free way to expand your vocabulary",
     "description": "Expand your vocabulary",
     "version": "0.0.5",
-    "author": "vocabular.app",
+    "author": "flashback.app",
     "chrome_url_overrides" : {
     	"newtab": "index.html"
     },

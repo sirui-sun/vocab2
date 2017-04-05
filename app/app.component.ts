@@ -6,7 +6,7 @@ import { Component } from '@angular/core';
 })
 
 export class AppComponent { 
-	name = 'Vocabular';
+	name = 'Flashback';
 	private helpVisible : boolean = false;
 	private contactVisible : boolean = false;
 

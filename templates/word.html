@@ -22,7 +22,7 @@
 <!-- definitions modal -->
 <div class="_modal" tabindex="-1" [ngStyle]="{'display': definitionVisible ? 'block' : 'none'}">
    <div class="modal-content definition">
-         <span class="close" (click)="onDismissDefinition()">×</span>
+         <span class="closeButton" (click)="onDismissDefinition()">×</span>
          <div id="modal-content">
             <div id="definitionsModal-word">{{word.word}}</div>
             <div *ngFor="let definition of definitions">  

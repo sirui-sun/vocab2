@@ -49,7 +49,7 @@
 .delete-button {
 	position: relative;
 	top: 3px;
-	left: 230px;
+	left: 223px;
 	font-style: italic;
 	color: #B0B0B0;
 }
@@ -57,7 +57,7 @@
 #words {
 	max-width: 700px;
 	position: relative;
-	top: 75px;
+	top: 98px;
 }
 
 /* The Modal (background) */
@@ -86,6 +86,7 @@
 .help {
 	width: 60%;
 	margin: 5% auto;
+	top: 35px;
 }
 
 .definition {
@@ -98,15 +99,18 @@
 }
 
 /* The Close Button */
-.close {
+.closeButton {
     color: #aaa;
     float: right;
     font-size: 28px;
     font-weight: bold;
+    position: relative;
+    bottom:25px;
+    left:15px;
 }
 
-.close:hover,
-.close:focus {
+.closeButton:hover,
+.closeButton:focus {
     color: black;
     text-decoration: none;
     cursor: pointer;
@@ -133,8 +137,9 @@
 	border: 1px solid #888;
 	font-size: 12px;
 	float:right;
-	height: 34px;
+	height: 36px;
 	width: 49px;
+	top: 2px;
 }
 `
 #addWordDialogue {
@@ -158,6 +163,8 @@
 	cursor: pointer;
 	padding-top: 5px;
 	padding-bottom: 5px;
+	width: 159px;
+	margin: 0 auto;
 }
 
 .customDefFormInWord {
@@ -204,7 +211,8 @@
 }
 
 .removeCustomDef {
-	float: right;
+	float: left;
+	left: 361px;
 	position: relative;
 	cursor: pointer;
 	font-weight: 700;
