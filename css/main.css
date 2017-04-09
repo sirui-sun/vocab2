@@ -234,3 +234,14 @@
 	bottom:27px;
 	left: 7px;
 }
+
+.sampleWord {
+	width: 250px;
+    margin: 0 auto;
+    cursor: pointer;
+    color: #4582ec;
+}
+
+.sampleWord:hover {
+	color: #143363;
+}

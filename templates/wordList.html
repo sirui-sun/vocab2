@@ -19,6 +19,9 @@
                 <span class="glyphicon glyphicon-plus plus-icon"></span>
             </button>
             
+            <div (click)="onSubmitSampleWord()" class= "sampleWord" *ngIf="this.sampleWord && this.wordControl.pristine">
+                How about "{{this.sampleWord}}"?
+            </div> 
             <div *ngIf="!this.wordControl.pristine">
                 <div>
                   <div *ngFor="let t of customDefControls; let i = index">
@@ -29,5 +32,5 @@
                 <div class="btn-link addCustomDefButton" (click)="addCustomDefinition()">Add custom definition</div>
             </div>
         </div>
-	</div>
+    </div>
 </section>

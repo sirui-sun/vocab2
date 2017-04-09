@@ -11,22 +11,39 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 var word_component_1 = require('./word.component');
 var wordList_service_1 = require('./wordList.service');
+var sampleWord_service_1 = require('./sampleWord.service');
 var forms_1 = require('@angular/forms');
 // The ListComponent metadata defines the component's selector,
 // the url of the template and the directives used in this template.
 var WordListComponent = (function () {
-    function WordListComponent(wordListService) {
+    function WordListComponent(wordListService, sampleWordService) {
         this.wordListService = wordListService;
+        this.sampleWordService = sampleWordService;
+        this.autoGotItInterval = 10000; // ms after which we automatically increment
         // fields
         this.newWord = "";
         this.newCustomDefinitions = [];
+        this.sampleWord = "";
         // form controls
         this.wordControl = new forms_1.FormControl(null, forms_1.Validators.required);
         this.customDefControls = [];
         this.customDefArray = new forms_1.FormArray(this.customDefControls);
-        this.autoGotItInterval = 4000; // ms after which we automatically increment
         // listen to messages passed from content extension, and add them to local storage
     }
+    WordListComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.getWordsLists();
+        this.checkAutoGotIt();
+        this.sampleWordService.getSampleWord().then(function (sampleWord) { _this.sampleWord = sampleWord; });
+        // if (chrome) {
+        // 	chrome.runtime.onMessage.addListener(
+        // 		function(request : any , sender : any, sendResponse : any) {
+        //  				// console.log("background task received request: " + rquest);
+        //  				t.onBgAddWord(request);
+        // 	});
+        // }
+        // wait two seconds and then trigger an action
+    };
     // the arrow is equivalent to a function declaration
     // the content to the left of the arrow is the function input
     // the content to right fo the arrow is the function body
@@ -46,17 +63,11 @@ var WordListComponent = (function () {
     WordListComponent.prototype.onUpdateCustomDefinitions = function (word, event) {
         this.wordListService.updateWordWithCustomDefinitions(word.word, event);
     };
-    WordListComponent.prototype.ngOnInit = function () {
+    WordListComponent.prototype.onSubmitSampleWord = function () {
+        var _this = this;
+        this.onBgAddWord(this.sampleWord);
+        this.sampleWordService.getSampleWord().then(function (sampleWord) { _this.sampleWord = sampleWord; });
         this.getWordsLists();
-        this.checkAutoGotIt();
-        // if (chrome) {
-        // 	chrome.runtime.onMessage.addListener(
-        // 		function(request : any , sender : any, sendResponse : any) {
-        //  				// console.log("background task received request: " + rquest);
-        //  				t.onBgAddWord(request);
-        // 	});
-        // }
-        // wait two seconds and then trigger an action
     };
     // when the document's visibility changes, checks if we should auto-increment
     WordListComponent.prototype.checkAutoGotIt = function () {
@@ -113,10 +124,10 @@ var WordListComponent = (function () {
         core_1.Component({
             selector: 'sp-wordlist',
             templateUrl: './templates/wordList.html',
-            providers: [wordList_service_1.WordListService],
+            providers: [wordList_service_1.WordListService, sampleWord_service_1.SampleWordService],
             inputs: ["newWord"]
         }), 
-        __metadata('design:paramtypes', [wordList_service_1.WordListService])
+        __metadata('design:paramtypes', [wordList_service_1.WordListService, sampleWord_service_1.SampleWordService])
     ], WordListComponent);
     return WordListComponent;
 }());
