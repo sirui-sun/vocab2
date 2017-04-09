@@ -14,7 +14,8 @@ export class Word {
 	definitions: Array<Object>;
 	whenAdded: Date;	// when the word was added
 	interval: number;	// which spaced repetition interval
-	intervals = [0, 1/72, 1, 2, 4, 7, 11, 14, 21, 35, 70, 105];
+	// interval, expressed in days
+	intervals = [0, 1/72, 1/36, 1/12, 1/6, 1, 1.5, 2, 3, 4, 7, 9, 11, 14, 17, 21, 27, 35, 50, 70, 85, 105];
 	customDefinitions: Array<string>;	// customDefinitions
 
 	constructor(word: string, whenAdded: Date, interval: number, customDefinitions: Array<string>) {

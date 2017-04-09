@@ -27,6 +27,8 @@ export class WordListComponent implements OnInit {
 	customDefControls:Array<FormControl> = [];
 	customDefArray:FormArray = new FormArray(this.customDefControls);
 
+	private autoGotItInterval:number = 4000;	// ms after which we automatically increment
+
 	constructor ( private wordListService : WordListService ) { 
 		// listen to messages passed from content extension, and add them to local storage
 	}
@@ -55,7 +57,7 @@ export class WordListComponent implements OnInit {
 
 	ngOnInit() {
 		this.getWordsLists();
-		let t = this;
+		this.checkAutoGotIt();
 
 		// if (chrome) {
 		// 	chrome.runtime.onMessage.addListener(
@@ -64,6 +66,22 @@ export class WordListComponent implements OnInit {
 	 //  				t.onBgAddWord(request);
 		// 	});
 		// }
+
+		// wait two seconds and then trigger an action
+
+	}
+
+	// when the document's visibility changes, checks if we should auto-increment
+	checkAutoGotIt():void {
+		setTimeout(()=> {
+			if(document.visibilityState == "visible") {
+				for (let word of this.words) {
+					if (word.shouldBeDisplayed()) {
+						this.wordListService.onGotIt(word);
+					}
+				}
+			}
+		}, this.autoGotItInterval);
 	}
 
 	deleteWord ( word : Word, i : number) {

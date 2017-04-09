@@ -24,6 +24,7 @@ var WordListComponent = (function () {
         this.wordControl = new forms_1.FormControl(null, forms_1.Validators.required);
         this.customDefControls = [];
         this.customDefArray = new forms_1.FormArray(this.customDefControls);
+        this.autoGotItInterval = 4000; // ms after which we automatically increment
         // listen to messages passed from content extension, and add them to local storage
     }
     // the arrow is equivalent to a function declaration
@@ -47,7 +48,7 @@ var WordListComponent = (function () {
     };
     WordListComponent.prototype.ngOnInit = function () {
         this.getWordsLists();
-        var t = this;
+        this.checkAutoGotIt();
         // if (chrome) {
         // 	chrome.runtime.onMessage.addListener(
         // 		function(request : any , sender : any, sendResponse : any) {
@@ -55,6 +56,21 @@ var WordListComponent = (function () {
         //  				t.onBgAddWord(request);
         // 	});
         // }
+        // wait two seconds and then trigger an action
+    };
+    // when the document's visibility changes, checks if we should auto-increment
+    WordListComponent.prototype.checkAutoGotIt = function () {
+        var _this = this;
+        setTimeout(function () {
+            if (document.visibilityState == "visible") {
+                for (var _i = 0, _a = _this.words; _i < _a.length; _i++) {
+                    var word = _a[_i];
+                    if (word.shouldBeDisplayed()) {
+                        _this.wordListService.onGotIt(word);
+                    }
+                }
+            }
+        }, this.autoGotItInterval);
     };
     WordListComponent.prototype.deleteWord = function (word, i) {
         this.wordListService.deleteWord(word.word);

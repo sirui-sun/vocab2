@@ -20,7 +20,8 @@ var forms_1 = require('@angular/forms');
 // }
 var Word = (function () {
     function Word(word, whenAdded, interval, customDefinitions) {
-        this.intervals = [0, 1 / 72, 1, 2, 4, 7, 11, 14, 21, 35, 70, 105];
+        // interval, expressed in days
+        this.intervals = [0, 1 / 72, 1 / 36, 1 / 12, 1 / 6, 1, 1.5, 2, 3, 4, 7, 9, 11, 14, 17, 21, 27, 35, 50, 70, 85, 105];
         this.word = word;
         this.whenAdded = whenAdded ? whenAdded : new Date();
         this.interval = interval ? interval : 0;
