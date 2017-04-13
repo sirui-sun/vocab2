@@ -43,6 +43,8 @@ var WordComponent = (function () {
         this.WordDefinitionService = WordDefinitionService;
         this.defined = false;
         this.definitionVisible = false;
+        this.definitionsLoaded = false;
+        this.definitionsError = false;
         // custom definition adder
         this.newCustomDefControls = [];
         this.newCustomDefArray = new forms_1.FormArray(this.newCustomDefControls);
@@ -61,13 +63,25 @@ var WordComponent = (function () {
         this.wordForgot.emit(word);
     };
     WordComponent.prototype.onDefine = function () {
+        var _this = this;
         if (!this.defined) {
-            this.definitions = this.WordDefinitionService.define(this.word.word);
-            this.definitions = this.definitions ? this.definitions : [];
+            this.definitions = [];
             for (var _i = 0, _a = this.word.customDefinitions; _i < _a.length; _i++) {
                 var customDef = _a[_i];
                 this.definitions.push([null, customDef]);
             }
+            // get official definitions
+            this.WordDefinitionService.define(this.word.word)
+                .then(function (dictDefs) {
+                if (!dictDefs) {
+                    return;
+                }
+                ;
+                _this.definitions = _this.definitions.concat(dictDefs);
+                _this.definitionsLoaded = true;
+            }, function () {
+                _this.definitionsError = true;
+            });
             this.defined = true;
         }
         this.definitionVisible = true;

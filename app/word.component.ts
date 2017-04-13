@@ -51,6 +51,8 @@ export class WordComponent {
 	definitions : Array<any>;
 	defined = false;
 	definitionVisible = false;
+	definitionsLoaded = false;
+	definitionsError = false;
 
 	// custom definition adder
 	newCustomDefControls:Array<FormControl> = [];
@@ -77,13 +79,25 @@ export class WordComponent {
 
 	onDefine() {
 		if (!this.defined) {
-			this.definitions = this.WordDefinitionService.define(this.word.word);
-			this.definitions = this.definitions ? this.definitions : [];
+			this.definitions = [];
 			for (let customDef of this.word.customDefinitions) {
 				this.definitions.push([null, customDef]);
 			}
+
+			// get official definitions
+			this.WordDefinitionService.define(this.word.word)
+				.then(
+				(dictDefs:Array<any>) => {
+					if (!dictDefs) { return };
+					this.definitions = this.definitions.concat(dictDefs);
+					this.definitionsLoaded = true;
+				}, ()=> {
+					this.definitionsError = true;
+				});
+
 			this.defined = true;
 		}
+
 		this.definitionVisible = true;
 	}
 

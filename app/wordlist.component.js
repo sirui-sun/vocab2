@@ -36,11 +36,12 @@ var WordListComponent = (function () {
         this.checkAutoGotIt();
         var t = this;
         this.sampleWordService.getSampleWord().then(function (sampleWord) { _this.sampleWord = sampleWord; });
-        if (chrome) {
-            chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
-                t.onBgAddWord(request);
-            });
-        }
+        // if (chrome) {
+        // 	chrome.runtime.onMessage.addListener(
+        // 		function(request : any , sender : any, sendResponse : any) {
+        //  				t.onBgAddWord(request);
+        // 	});
+        // }
         // wait two seconds and then trigger an action
     };
     // the arrow is equivalent to a function declaration

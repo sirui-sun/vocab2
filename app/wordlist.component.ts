@@ -42,12 +42,12 @@ export class WordListComponent implements OnInit {
 		let t = this;
 		this.sampleWordService.getSampleWord().then((sampleWord:string) => { this.sampleWord = sampleWord; });
 
-		if (chrome) {
-			chrome.runtime.onMessage.addListener(
-				function(request : any , sender : any, sendResponse : any) {
-	  				t.onBgAddWord(request);
-			});
-		}
+		// if (chrome) {
+		// 	chrome.runtime.onMessage.addListener(
+		// 		function(request : any , sender : any, sendResponse : any) {
+	 //  				t.onBgAddWord(request);
+		// 	});
+		// }
 
 		// wait two seconds and then trigger an action
 
