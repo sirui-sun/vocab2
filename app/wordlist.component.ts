@@ -5,6 +5,7 @@ import { WordComponent } from './word.component';
 import { WordListService } from './wordList.service';
 import { SampleWordService } from './sampleWord.service';
 import { FormControl, FormArray, Validators } from '@angular/forms'
+declare var chrome:any;
 
 // The ListComponent metadata defines the component's selector,
 // the url of the template and the directives used in this template.
@@ -38,15 +39,15 @@ export class WordListComponent implements OnInit {
 	ngOnInit() {
 		this.getWordsLists();
 		this.checkAutoGotIt();
+		let t = this;
 		this.sampleWordService.getSampleWord().then((sampleWord:string) => { this.sampleWord = sampleWord; });
 
-		// if (chrome) {
-		// 	chrome.runtime.onMessage.addListener(
-		// 		function(request : any , sender : any, sendResponse : any) {
-	 //  				// console.log("background task received request: " + rquest);
-	 //  				t.onBgAddWord(request);
-		// 	});
-		// }
+		if (chrome) {
+			chrome.runtime.onMessage.addListener(
+				function(request : any , sender : any, sendResponse : any) {
+	  				t.onBgAddWord(request);
+			});
+		}
 
 		// wait two seconds and then trigger an action
 

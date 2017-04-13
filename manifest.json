@@ -3,8 +3,8 @@
     "name": "Vocabular",
     "short_name": "The hassle-free way to expand your vocabulary",
     "description": "Expand your vocabulary",
-    "version": "0.0.5",
-    "author": "flashback.app",
+    "version": "0.1.5",
+    "author": "vocabular.app",
     "chrome_url_overrides" : {
     	"newtab": "index.html"
     },
