@@ -3,7 +3,7 @@
     "name": "Vocabular",
     "short_name": "The hassle-free way to expand your vocabulary",
     "description": "Expand your vocabulary",
-    "version": "0.1.5",
+    "version": "0.2.0",
     "author": "vocabular.app",
     "chrome_url_overrides" : {
     	"newtab": "index.html"

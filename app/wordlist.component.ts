@@ -19,7 +19,8 @@ declare var chrome:any;
 export class WordListComponent implements OnInit {
 	
 	private autoGotItInterval:number = 9999999;	// ms after which we automatically increment
-	private displayEmptyState:boolean = false;
+	private displayEmptyState:boolean = false;	// should we display empty state
+	private reviewMode:boolean = false;			// review mode: show all words
 
 	// fields
 	public words : Array<Word>;					// full set of words
@@ -150,5 +151,13 @@ export class WordListComponent implements OnInit {
 	onBgAddWord ( word : string ) {
 		this.wordListService.addWord(new Word(word, null, null, null));
 		this.getWordsLists();
+	}
+
+	enableReviewMode():void {
+		this.reviewMode = true;
+	}
+
+	disableReviewMode():void {
+		this.reviewMode = false;
 	}
 }

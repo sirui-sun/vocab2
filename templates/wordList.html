@@ -1,11 +1,16 @@
 <section class="wordList container" id="words">
-    <div class="jumbotron word" id="emptyState" *ngIf="this.displayEmptyState && this.words.length > 0">
+    <div class="jumbotron word" *ngIf="this.reviewMode">
+        Review mode enabled
+        <div (click)="disableReviewMode()">Disable</div>
+    </div>
+
+    <div class="jumbotron word" id="emptyState" *ngIf="this.displayEmptyState && this.words.length > 0 && !this.reviewMode">
         <div>Hello!</div>
         <div>You have no more words to review (for now!)</div>
         <div>[placeholder for picture]</div>
         <div>Build your vocabulary!</div>
         <div> Add more words you want to memorize below</div>
-        <div>Or, see all words that you're currently learning</div>
+        <div (click)="enableReviewMode()">Or, see all words that you're currently learning</div>
     </div>
 
 	<div *ngFor="let word of words; let i = index">
@@ -15,8 +20,8 @@
     "(bookmarkChanged)" and "(bookmarkDeleted)". 
     Whenever one of these events were raised, 
     their respective functions will be executed. -->
-        <div *ngIf="word.shouldBeDisplayed()">
-            <sp-word [word]="word" (wordDeleted)="deleteWord(word)" (wordGotIt)="onGotIt(word)" (wordForgot)="onForget(word)" (updateCustomDefinitions)="onUpdateCustomDefinitions(word, $event)"></sp-word>
+        <div *ngIf="word.shouldBeDisplayed() || this.reviewMode">
+            <sp-word [word]="word" [reviewMode]="this.reviewMode" (wordDeleted)="deleteWord(word)" (wordGotIt)="onGotIt(word)" (wordForgot)="onForget(word)" (updateCustomDefinitions)="onUpdateCustomDefinitions(word, $event)"></sp-word>
         </div>
 	</div>
 

@@ -20,7 +20,8 @@ var WordListComponent = (function () {
         this.wordListService = wordListService;
         this.sampleWordService = sampleWordService;
         this.autoGotItInterval = 9999999; // ms after which we automatically increment
-        this.displayEmptyState = false;
+        this.displayEmptyState = false; // should we display empty state
+        this.reviewMode = false; // review mode: show all words
         this.newWord = "";
         this.newCustomDefinitions = [];
         this.sampleWord = "";
@@ -131,6 +132,12 @@ var WordListComponent = (function () {
     WordListComponent.prototype.onBgAddWord = function (word) {
         this.wordListService.addWord(new word_component_1.Word(word, null, null, null));
         this.getWordsLists();
+    };
+    WordListComponent.prototype.enableReviewMode = function () {
+        this.reviewMode = true;
+    };
+    WordListComponent.prototype.disableReviewMode = function () {
+        this.reviewMode = false;
     };
     WordListComponent = __decorate([
         core_1.Component({

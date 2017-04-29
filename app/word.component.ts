@@ -26,12 +26,21 @@ export class Word {
 		this.customDefinitions = customDefinitions ? customDefinitions : [];
 	}
 
-	// should this word currently be displayed?
-	shouldBeDisplayed() {
-		let now = new Date();
+	nextReminder():Date {
 		let toCheck = new Date(this.whenAdded);
-		toCheck.setDate(toCheck.getDate() + this.intervals[this.interval]);
-		return now > toCheck;
+		return toCheck.setDate(toCheck.getDate() + this.intervals[this.interval]);
+	}
+
+	nextReminderString():string {
+		let d = new Date(this.nextReminder());
+		return d.toLocaleTimeString() + " on " + d.toLocaleDateString();	
+	}
+
+	// should this word currently be displayed?
+	shouldBeDisplayed():boolean {
+		let now = new Date();
+		let toCheck = this.nextReminder();
+		return now >= toCheck;
 	}
 }
 
@@ -39,7 +48,7 @@ export class Word {
     selector: 'sp-word',
     templateUrl: './templates/word.html',
     providers: [ WordDefinitionService ],
-    inputs: ['word']
+    inputs: ['word', 'reviewMode']
 })
 
 export class WordComponent { 
@@ -48,6 +57,7 @@ export class WordComponent {
 	// @ViewChild(DefinitionModal)
 
 	word : Word;
+	reviewMode: boolean = false; 
 	definitions : Array<any>;
 	defined = false;
 	definitionVisible = false;

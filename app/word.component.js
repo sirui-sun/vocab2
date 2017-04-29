@@ -28,12 +28,19 @@ var Word = (function () {
         this.definitions = [];
         this.customDefinitions = customDefinitions ? customDefinitions : [];
     }
+    Word.prototype.nextReminder = function () {
+        var toCheck = new Date(this.whenAdded);
+        return toCheck.setDate(toCheck.getDate() + this.intervals[this.interval]);
+    };
+    Word.prototype.nextReminderString = function () {
+        var d = new Date(this.nextReminder());
+        return d.toLocaleTimeString() + " on " + d.toLocaleDateString();
+    };
     // should this word currently be displayed?
     Word.prototype.shouldBeDisplayed = function () {
         var now = new Date();
-        var toCheck = new Date(this.whenAdded);
-        toCheck.setDate(toCheck.getDate() + this.intervals[this.interval]);
-        return now > toCheck;
+        var toCheck = this.nextReminder();
+        return now >= toCheck;
     };
     return Word;
 }());
@@ -41,6 +48,7 @@ exports.Word = Word;
 var WordComponent = (function () {
     function WordComponent(WordDefinitionService) {
         this.WordDefinitionService = WordDefinitionService;
+        this.reviewMode = false;
         this.defined = false;
         this.definitionVisible = false;
         this.definitionsLoaded = false;
@@ -130,7 +138,7 @@ var WordComponent = (function () {
             selector: 'sp-word',
             templateUrl: './templates/word.html',
             providers: [wordDefinition_service_1.WordDefinitionService],
-            inputs: ['word']
+            inputs: ['word', 'reviewMode']
         }), 
         __metadata('design:paramtypes', [wordDefinition_service_1.WordDefinitionService])
     ], WordComponent);

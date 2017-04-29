@@ -8,6 +8,11 @@
          </div>
       </div>
    </div>
+
+   <div class="row" *ngIf="reviewMode">
+      Next reminder at {{word.nextReminderString()}}
+   </div>
+
    <div class="row">
       <div class="col-md-2 col-md-offset-4">
          <div class="btn btn-success gotIt-button" (click)="onGotIt(word)">Got It</div>
