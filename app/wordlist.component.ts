@@ -18,10 +18,11 @@ declare var chrome:any;
 
 export class WordListComponent implements OnInit {
 	
-	public words : Array<Word>;					// full set of words
-	private autoGotItInterval:number = 10000;	// ms after which we automatically increment
+	private autoGotItInterval:number = 9999999;	// ms after which we automatically increment
+	private displayEmptyState:boolean = false;
 
 	// fields
+	public words : Array<Word>;					// full set of words
 	public newWord:string = "";
 	public newCustomDefinitions:Array<Object> = [];
 	public sampleWord:string = "";
@@ -57,7 +58,19 @@ export class WordListComponent implements OnInit {
 	// the content to the left of the arrow is the function input
 	// the content to right fo the arrow is the function body
 	getWordsLists():void {
-		this.wordListService.getWords().then((words:any) => this.words = words);
+		this.wordListService.getWords()
+			.then((words:any) => this.words = words)
+			.then(() => {
+				// // check if we should be displaying empty state
+				for (let word of this.words) {
+					if (word.shouldBeDisplayed()) {
+						this.displayEmptyState = false;
+						return;
+					}
+				}
+
+				this.displayEmptyState = true;
+			});
 	}
 
 	// TODO: is there a way to do this without repeatedly calling getWordsLists

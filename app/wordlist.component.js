@@ -19,8 +19,8 @@ var WordListComponent = (function () {
     function WordListComponent(wordListService, sampleWordService) {
         this.wordListService = wordListService;
         this.sampleWordService = sampleWordService;
-        this.autoGotItInterval = 10000; // ms after which we automatically increment
-        // fields
+        this.autoGotItInterval = 9999999; // ms after which we automatically increment
+        this.displayEmptyState = false;
         this.newWord = "";
         this.newCustomDefinitions = [];
         this.sampleWord = "";
@@ -49,7 +49,19 @@ var WordListComponent = (function () {
     // the content to right fo the arrow is the function body
     WordListComponent.prototype.getWordsLists = function () {
         var _this = this;
-        this.wordListService.getWords().then(function (words) { return _this.words = words; });
+        this.wordListService.getWords()
+            .then(function (words) { return _this.words = words; })
+            .then(function () {
+            // // check if we should be displaying empty state
+            for (var _i = 0, _a = _this.words; _i < _a.length; _i++) {
+                var word = _a[_i];
+                if (word.shouldBeDisplayed()) {
+                    _this.displayEmptyState = false;
+                    return;
+                }
+            }
+            _this.displayEmptyState = true;
+        });
     };
     // TODO: is there a way to do this without repeatedly calling getWordsLists
     WordListComponent.prototype.onGotIt = function (word) {
