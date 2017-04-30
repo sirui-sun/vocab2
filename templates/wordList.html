@@ -7,7 +7,7 @@
         </div>
     </div>
 
-    <div class="jumbotron word" id="emptyState" *ngIf="this.displayEmptyState && this.words.length > 0 && !this.reviewMode">
+    <div class="jumbotron word" id="emptyState" *ngIf="this.displayEmptyState && !this.reviewMode">
         <div class="greeting heading">Hello!</div>
         <div>You have no more words to review (for now!)</div>
         <div><img src="resources/dictionary.png"/></div>

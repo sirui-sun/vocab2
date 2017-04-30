@@ -8,12 +8,11 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-Object.defineProperty(exports, "__esModule", { value: true });
-var core_1 = require("@angular/core");
-var word_component_1 = require("./word.component");
-var wordList_service_1 = require("./wordList.service");
-var sampleWord_service_1 = require("./sampleWord.service");
-var forms_1 = require("@angular/forms");
+var core_1 = require('@angular/core');
+var word_component_1 = require('./word.component');
+var wordList_service_1 = require('./wordList.service');
+var sampleWord_service_1 = require('./sampleWord.service');
+var forms_1 = require('@angular/forms');
 // The ListComponent metadata defines the component's selector,
 // the url of the template and the directives used in this template.
 var WordListComponent = (function () {
@@ -38,11 +37,12 @@ var WordListComponent = (function () {
         this.checkAutoGotIt();
         var t = this;
         this.sampleWordService.getSampleWord().then(function (sampleWord) { _this.sampleWord = sampleWord; });
-        if (chrome) {
-            chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
-                t.onBgAddWord(request);
-            });
-        }
+        // if (chrome) {
+        // 	chrome.runtime.onMessage.addListener(
+        // 		function(request : any , sender : any, sendResponse : any) {
+        //  		t.onBgAddWord(request);
+        // 	});
+        // }
     };
     // the arrow is equivalent to a function declaration
     // the content to the left of the arrow is the function input
@@ -138,16 +138,16 @@ var WordListComponent = (function () {
     WordListComponent.prototype.disableReviewMode = function () {
         this.reviewMode = false;
     };
+    WordListComponent = __decorate([
+        core_1.Component({
+            selector: 'sp-wordlist',
+            templateUrl: './templates/wordList.html',
+            providers: [wordList_service_1.WordListService, sampleWord_service_1.SampleWordService],
+            inputs: ["newWord"]
+        }), 
+        __metadata('design:paramtypes', [wordList_service_1.WordListService, sampleWord_service_1.SampleWordService])
+    ], WordListComponent);
     return WordListComponent;
 }());
-WordListComponent = __decorate([
-    core_1.Component({
-        selector: 'sp-wordlist',
-        templateUrl: './templates/wordList.html',
-        providers: [wordList_service_1.WordListService, sampleWord_service_1.SampleWordService],
-        inputs: ["newWord"]
-    }),
-    __metadata("design:paramtypes", [wordList_service_1.WordListService, sampleWord_service_1.SampleWordService])
-], WordListComponent);
 exports.WordListComponent = WordListComponent;
 //# sourceMappingURL=wordlist.component.js.map
