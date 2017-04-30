@@ -8,8 +8,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var word_component_1 = require('./word.component');
-var core_1 = require('@angular/core');
+Object.defineProperty(exports, "__esModule", { value: true });
+var word_component_1 = require("./word.component");
+var core_1 = require("@angular/core");
 // import { DefinitionModal } from './word.component';
 // Importing the "Injectable" function from the angular2/core module
 // and adding the "@Injectable" decorator lets us use dependency injection
@@ -104,11 +105,20 @@ var WordListService = (function () {
     WordListService.prototype.saveToLocalStorage = function (words) {
         localStorage.setItem(this.LOCAL_STORAGE_KEY, JSON.stringify(words));
     };
-    WordListService = __decorate([
-        core_1.Injectable(), 
-        __metadata('design:paramtypes', [])
-    ], WordListService);
     return WordListService;
 }());
+WordListService = __decorate([
+    core_1.Injectable()
+    //localStorage word schema:
+    // [ {
+    //      word: string,    
+    //      definitions: Array<{partOfSpeech:string; definition:string}>,
+    //      whenAdded: number,  // when the word was added
+    //      interval: number  // which spaced repetition interval
+    //      customDefinitions: Array<{partOfSpeech:string; definition:string}>
+    // }]
+    ,
+    __metadata("design:paramtypes", [])
+], WordListService);
 exports.WordListService = WordListService;
 //# sourceMappingURL=wordList.service.js.map

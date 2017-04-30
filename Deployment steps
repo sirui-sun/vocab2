@@ -1,0 +1,5 @@
+Deployment steps
+================
+- delete node_modules
+- run:
+	> npm install --production

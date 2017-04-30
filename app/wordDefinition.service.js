@@ -8,13 +8,14 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+Object.defineProperty(exports, "__esModule", { value: true });
 // Importing the "Injectable" function from the angular2/core module
 // and adding the "@Injectable" decorator lets us use dependency injection
 // in this service.
-var core_1 = require('@angular/core');
-var http_1 = require('@angular/http');
-require('rxjs/add/operator/map');
-require('rxjs/add/operator/toPromise');
+var core_1 = require("@angular/core");
+var http_1 = require("@angular/http");
+require("rxjs/add/operator/map");
+require("rxjs/add/operator/toPromise");
 var WordDefinitionService = (function () {
     function WordDefinitionService(http) {
         this.dict = {}; // internal cache
@@ -77,11 +78,11 @@ var WordDefinitionService = (function () {
     WordDefinitionService.prototype.generateRequestURL = function (word) {
         return this.API_ROOT + word + "/definitions";
     };
-    WordDefinitionService = __decorate([
-        core_1.Injectable(), 
-        __metadata('design:paramtypes', [http_1.Http])
-    ], WordDefinitionService);
     return WordDefinitionService;
 }());
+WordDefinitionService = __decorate([
+    core_1.Injectable(),
+    __metadata("design:paramtypes", [http_1.Http])
+], WordDefinitionService);
 exports.WordDefinitionService = WordDefinitionService;
 //# sourceMappingURL=wordDefinition.service.js.map

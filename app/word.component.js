@@ -8,11 +8,12 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var core_1 = require('@angular/core');
-var core_2 = require('@angular/core');
-var core_3 = require('@angular/core');
-var wordDefinition_service_1 = require('./wordDefinition.service');
-var forms_1 = require('@angular/forms');
+Object.defineProperty(exports, "__esModule", { value: true });
+var core_1 = require("@angular/core");
+var core_2 = require("@angular/core");
+var core_3 = require("@angular/core");
+var wordDefinition_service_1 = require("./wordDefinition.service");
+var forms_1 = require("@angular/forms");
 // import { DefinitionModal } from './definitionModal.component';
 // interface Word {
 // 	word: string,
@@ -117,32 +118,32 @@ var WordComponent = (function () {
         this.newCustomDefControls = [];
         this.newCustomDefArray = new forms_1.FormArray(this.newCustomDefControls);
     };
-    __decorate([
-        core_2.Output(), 
-        __metadata('design:type', core_3.EventEmitter)
-    ], WordComponent.prototype, "wordDeleted", void 0);
-    __decorate([
-        core_2.Output(), 
-        __metadata('design:type', core_3.EventEmitter)
-    ], WordComponent.prototype, "wordGotIt", void 0);
-    __decorate([
-        core_2.Output(), 
-        __metadata('design:type', core_3.EventEmitter)
-    ], WordComponent.prototype, "wordForgot", void 0);
-    __decorate([
-        core_2.Output(), 
-        __metadata('design:type', core_3.EventEmitter)
-    ], WordComponent.prototype, "updateCustomDefinitions", void 0);
-    WordComponent = __decorate([
-        core_1.Component({
-            selector: 'sp-word',
-            templateUrl: './templates/word.html',
-            providers: [wordDefinition_service_1.WordDefinitionService],
-            inputs: ['word', 'reviewMode']
-        }), 
-        __metadata('design:paramtypes', [wordDefinition_service_1.WordDefinitionService])
-    ], WordComponent);
     return WordComponent;
 }());
+__decorate([
+    core_2.Output(),
+    __metadata("design:type", core_3.EventEmitter)
+], WordComponent.prototype, "wordDeleted", void 0);
+__decorate([
+    core_2.Output(),
+    __metadata("design:type", core_3.EventEmitter)
+], WordComponent.prototype, "wordGotIt", void 0);
+__decorate([
+    core_2.Output(),
+    __metadata("design:type", core_3.EventEmitter)
+], WordComponent.prototype, "wordForgot", void 0);
+__decorate([
+    core_2.Output(),
+    __metadata("design:type", core_3.EventEmitter)
+], WordComponent.prototype, "updateCustomDefinitions", void 0);
+WordComponent = __decorate([
+    core_1.Component({
+        selector: 'sp-word',
+        templateUrl: './templates/word.html',
+        providers: [wordDefinition_service_1.WordDefinitionService],
+        inputs: ['word', 'reviewMode']
+    }),
+    __metadata("design:paramtypes", [wordDefinition_service_1.WordDefinitionService])
+], WordComponent);
 exports.WordComponent = WordComponent;
 //# sourceMappingURL=word.component.js.map
