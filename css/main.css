@@ -3,7 +3,7 @@
 	padding-left: 0px;
 	padding-right: 0px;
 	padding-bottom: 0px;
-	background-color:#F8F8F8;
+	background-color:#F7F7F7;
 }
 
 .jumbotron {
@@ -36,7 +36,7 @@
 .jumbotron .btn {
 	padding: 5px;
 	font-size: 15px;
-	width: 90px;
+	width: 110%;
 	text-align: center;
 }
 
@@ -58,6 +58,7 @@
 	max-width: 700px;
 	position: relative;
 	top: 98px;
+	font-family: "Raleway","Helvetica Neue",Helvetica,Arial,sans-serif;
 }
 
 /* The Modal (background) */
@@ -130,7 +131,7 @@
 }
 
 #newWordInput {
-	width: 342px;
+	width: 87%;
 }
 
 #addWordButton {
@@ -140,9 +141,6 @@
 	height: 36px;
 	width: 49px;
 	top: 2px;
-}
-`
-#addWordDialogue {
 }
 
 .plus-icon {
@@ -163,8 +161,9 @@
 	cursor: pointer;
 	padding-top: 5px;
 	padding-bottom: 5px;
-	width: 159px;
+	width: 66%;
 	margin: 0 auto;
+	text-align: center;
 }
 
 .customDefFormInWord {
@@ -212,13 +211,13 @@
 
 .removeCustomDef {
 	float: left;
-	left: 361px;
+	left: 87%;
 	position: relative;
 	cursor: pointer;
 	font-weight: 700;
 	line-height: 1;
     color: #aaa;
-    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    
 }
 
 .removeCustomDef:hover,
@@ -236,17 +235,13 @@
 }
 
 .sampleWord {
+	height:26px;
 	width: 250px;
-    margin: 0 auto;
-    cursor: pointer;
-    color: #4582ec;
+   	margin-left: auto;
+   	margin-right:auto;
+   	margin-top: 5px;
     position: relative;
-    top: 4px;
     font-family: "Raleway","Helvetica Neue",Helvetica,Arial,sans-serif;
-}
-
-.sampleWord:hover {
-	color: #143363;
 }
 
 .loading {
@@ -260,4 +255,53 @@
 	height: 200px;
 	position: fixed;
 	/*top: 20px;*/
+}
+
+#emptyState {
+	color: #707070;
+	font-family: "Raleway","Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+
+#emptyState .heading {
+	font-size: 200%;
+}
+
+.greeting {
+	font-weight: bold;
+	color: #4582ec;
+}
+
+.nextSteps {
+	margin-top: 20px;
+	margin-bottom:20px;
+}
+
+.clickable {
+	color: #4582ec;
+	cursor:pointer;
+}
+
+.clickable:hover {
+	color: #143363;
+}
+
+.greetingHeader {
+	font-size: 133%;
+}
+
+.reviewModeText {
+	margin-bottom: 20px;
+}
+
+.wordNextReminder {
+	padding-bottom: 7px;	
+}
+
+.reminderAction {
+	font-weight: bold;
+	font-size:110%;
+}
+
+.reminderSubtext {
+	font-size:70%;
 }

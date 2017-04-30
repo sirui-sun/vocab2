@@ -1,16 +1,21 @@
 <section class="wordList container" id="words">
     <div class="jumbotron word" *ngIf="this.reviewMode">
-        Review mode enabled
-        <div (click)="disableReviewMode()">Disable</div>
+        <div class="reviewModeText"> 
+            <div class="greeting greetingHeader">You're in review mode</div>
+            This view shows <b>all</b> the words that you're currently reviewing.
+            <div class="clickable" (click)="disableReviewMode()">Back to normal</div>
+        </div>
     </div>
 
     <div class="jumbotron word" id="emptyState" *ngIf="this.displayEmptyState && this.words.length > 0 && !this.reviewMode">
-        <div>Hello!</div>
+        <div class="greeting heading">Hello!</div>
         <div>You have no more words to review (for now!)</div>
-        <div>[placeholder for picture]</div>
-        <div>Build your vocabulary!</div>
-        <div> Add more words you want to memorize below</div>
-        <div (click)="enableReviewMode()">Or, see all words that you're currently learning</div>
+        <div><img src="resources/dictionary.png"/></div>
+        <div class="nextSteps">
+            <div class="greeting">Keep building your vocabulary</div>
+            <div> Add more words you want to memorize below</div>
+            <div class="clickable" (click)="enableReviewMode()">Or, see all words that you're currently learning</div>
+        </div>
     </div>
 
 	<div *ngFor="let word of words; let i = index">
@@ -27,24 +32,34 @@
 
     <!-- Add word -->
 	<div class="jumbotron word" id="addWordDialogue">
-        <div id="addWordBoundingBox" class="row">
-	    	<input class="col-md-1 form-control" id="newWordInput" [formControl] = "wordControl" name="newWord" placeholder="Add a new word"/>
-      		<button class="btn btn-primary add-button col-md-1" id="addWordButton" type="submit" (click)=onSubmit() >
-                <span class="glyphicon glyphicon-plus plus-icon"></span>
-            </button>
+        <div id="addWordBoundingBox">
             
-            <div (click)="onSubmitSampleWord()" class= "sampleWord" *ngIf="this.sampleWord && this.wordControl.pristine">
-                How about "{{this.sampleWord}}"?
-            </div> 
-            <div *ngIf="!this.wordControl.pristine">
-                <div>
-                  <div *ngFor="let t of customDefControls; let i = index">
-                    <input [formControl]="t" placeholder="Enter a custom definition" class="definitionForm customDefWordlist" >
-                    <div class="removeCustomDef removeCustomDefWordlist" (click)="removeCustomDefinition(i)">X</div>
-                  </div>
-                </div>
-                <div class="btn-link addCustomDefButton" (click)="addCustomDefinition()">Add custom definition</div>
+            <!-- word entry  -->
+            <div class="row">
+    	    	<input class="col-md-1 form-control" id="newWordInput" [formControl] = "wordControl" name="newWord" placeholder="Add a new word"/>
+          		<button class="btn btn-primary add-button col-md-1" id="addWordButton" type="submit" (click)=onSubmit() >
+                    <span class="glyphicon glyphicon-plus plus-icon"></span>
+                </button>
             </div>
+
+            <!-- Sample word suggestion -->
+            <div class="row">
+                <div (click)="onSubmitSampleWord()" class= "sampleWord clickable" *ngIf="this.sampleWord && this.wordControl.pristine">
+                    How about "{{this.sampleWord}}"?
+                </div> 
+            </div>
+            <!-- Custom definitions -->
+            <div class="row">
+                <div *ngIf="!this.wordControl.pristine">
+                    <div>
+                      <div *ngFor="let t of customDefControls; let i = index">
+                        <input [formControl]="t" placeholder="Enter a custom definition" class="definitionForm customDefWordlist" >
+                        <div class="removeCustomDef removeCustomDefWordlist" (click)="removeCustomDefinition(i)">X</div>
+                      </div>
+                    </div>
+                    <div class="btn-link addCustomDefButton" (click)="addCustomDefinition()">Add custom definition</div>
+                </div>
+            </div> 
         </div>
     </div>
 </section>

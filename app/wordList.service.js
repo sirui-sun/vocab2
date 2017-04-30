@@ -86,7 +86,7 @@ var WordListService = (function () {
             return;
         }
         var targetWord = words[targetIdx];
-        var newInterval = targetWord.interval == 0 ? 0 : targetWord.interval - 1;
+        var newInterval = targetWord.interval == 0 ? 1 : targetWord.interval - 1;
         words[targetIdx] = new word_component_1.Word(targetWord.word, new Date(), newInterval, targetWord.customDefinitions);
         this.saveToLocalStorage(words);
         return;

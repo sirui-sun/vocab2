@@ -30,7 +30,7 @@ var Word = (function () {
     }
     Word.prototype.nextReminder = function () {
         var toCheck = new Date(this.whenAdded);
-        return toCheck.setDate(toCheck.getDate() + this.intervals[this.interval]);
+        return new Date(toCheck.setDate(toCheck.getDate() + this.intervals[this.interval]));
     };
     Word.prototype.nextReminderString = function () {
         var d = new Date(this.nextReminder());

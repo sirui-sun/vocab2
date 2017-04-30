@@ -28,7 +28,7 @@ export class Word {
 
 	nextReminder():Date {
 		let toCheck = new Date(this.whenAdded);
-		return toCheck.setDate(toCheck.getDate() + this.intervals[this.interval]);
+		return new Date(toCheck.setDate(toCheck.getDate() + this.intervals[this.interval]));
 	}
 
 	nextReminderString():string {

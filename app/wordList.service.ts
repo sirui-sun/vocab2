@@ -92,7 +92,7 @@ export class WordListService {
     if (targetIdx == -1 ) { return; }
 
     let targetWord = words[targetIdx];
-    let newInterval = targetWord.interval == 0 ? 0 : targetWord.interval - 1
+    let newInterval = targetWord.interval == 0 ? 1 : targetWord.interval - 1
     words[targetIdx] = new Word(targetWord.word, new Date(), newInterval, targetWord.customDefinitions);
     this.saveToLocalStorage(words);
     return;
